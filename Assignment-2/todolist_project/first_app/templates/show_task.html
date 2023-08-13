@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+
+<div style="width: 80%; margin: auto;">
+  <h1 style="color: brown; font-family:cursive; margin-bottom: 30px;">Show Taskk.....
+  </h1> 
+
+ 
+  {% if data %}
+
+  <table class="table table-hover table-primary">
+    <thead>
+      <tr>
+        <th scope="col">Title</th>
+        <th scope="col">Description</th>
+        <th scope="col">Status</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in data %}
+      <tr>
+        <td>{{item.taskTitle}}</td>
+        <td>{{item.taskDescription}}</td>
+
+        <td>
+          {% if not item.is_completed %}
+          Incomplete
+          {% else %}
+          Completed
+          {% endif %}
+      </td>
+        
+        <td>
+          <a href="{% url 'editTask'  item.id %}" class="btn btn-warning btn-sm">Edit</a>
+
+          <a href="{% url 'deleteTask' item.id %}" class="btn btn-danger btn-sm">Delete</a>
+
+          <a href="{% url 'completeTask' item.id %}" class="btn btn-danger btn-sm">Complete</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong style="font-family: cursive;">Hello, Dear User❣️!!</strong> No task are available😑......
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  {% endif %}
+</div>
+
+{% endblock %}
